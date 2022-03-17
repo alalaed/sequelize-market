@@ -1,32 +1,12 @@
 import { Router } from "express";
-import { Product, Reviews } from "../../db/models/index.js";
-import { Op } from "sequelize";
+import { Product, Review } from "../../db/models/index.js";
 
 const productRouter = Router();
 
 productRouter.get("/", async (req, res, next) => {
   try {
     const data = await Product.findAll({
-      include: Reviews,
-      // where: {
-      //   [Op.or]: [
-      //     {
-      //       category: {
-      //         [Op.in]: req.query.category.split(","),
-      //       },
-      //     },
-      //     req.query.title && {
-      //       title: {
-      //         [Op.iLike]: `%${req.query.title}%`,
-      //       },
-      //     },
-      //     req.query.content && {
-      //       content: {
-      //         [Op.iLike]: `%${req.query.content}%`,
-      //       },
-      //     },
-      //   ],
-      // },
+      include: Review,
     });
     res.send(data);
   } catch (error) {
