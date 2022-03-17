@@ -1,5 +1,5 @@
 import express from "express";
-import sequelize, { testDB } from "./db/index.js";
+import sequelize, { syncDB, testDB } from "./db/index.js";
 import productRouter from "./services/product/index.js";
 import reviewsRouter from "./services/reviews/index.js";
 import usersRouter from "./services/users/index.js";
@@ -18,6 +18,7 @@ server.use("/users", usersRouter);
 server.listen(process.env.PORT || 3001, async () => {
   console.log("server is running on port ", process.env.PORT || 3001);
   await testDB();
+  await syncDB();
   sequelize
     .sync()
     .then(() => {
